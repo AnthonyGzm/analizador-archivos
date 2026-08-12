@@ -1,4 +1,4 @@
-namespace AnalizadorArchivos;
+﻿namespace AnalizadorArchivos;
 
 public static class BuscadorArchivos
 {
@@ -7,12 +7,12 @@ public static class BuscadorArchivos
 
 
 
-      List<string> resultado = new List<string>();
+        List<string> resultado = new List<string>();
 
-       foreach (string archivo in Directory.GetFiles(carpeta, "*.txt"))
+        foreach (string archivo in Directory.GetFiles(carpeta, "*.txt"))
             resultado.Add(archivo);
 
-         foreach (string sub in Directory.GetDirectories(carpeta))
+        foreach (string sub in Directory.GetDirectories(carpeta))
             resultado.AddRange(BuscarTxt(sub));
 
 
@@ -20,3 +20,4 @@ public static class BuscadorArchivos
 
         return resultado;
     }
+}
