@@ -37,4 +37,17 @@ public class Analizador
         return r;
     }
 
+    // Metodo para contar las ocurrencias de una palabra en un texto
+    private int ContarOcurrencias(string texto, string palabra)
+    {
+        int cuenta = 0;
+        int i = 0;
+        while ((i = texto.IndexOf(palabra, i, StringComparison.Ordinal)) != -1)
+        {
+            cuenta++;
+            i += palabra.Length;
+        }
+        return cuenta;
+    }
+
 }
