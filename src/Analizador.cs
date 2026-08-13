@@ -50,4 +50,31 @@ public class Analizador
         return cuenta;
     }
 
+    // modo secuencial
+    public Reporte Secuencial(List<string> archivos)
+    {
+        Reporte general = new Reporte();
+        foreach (string archivo in archivos)
+            general.Combinar(AnalizarArchivo(archivo));
+        return general;
+    }
+
+    // modo paralelo por archivos
+    public Reporte ParaleloPorArchivo(List<string> archivos)
+    {
+        Reporte general = new Reporte();
+        List<Task> tareas = new List<Task>();
+        foreach (string archivo in archivos)
+        {
+            string ruta = archivo;
+            tareas.Add(Task.Factory.StartNew(() =>
+            {
+                Reporte parcial = AnalizarArchivo(ruta);
+                lock (candado) { general.Combinar(parcial); }
+            }));
+        }
+        Task.WhenAll(tareas).Wait();
+        return general;
+    }
+
 }
