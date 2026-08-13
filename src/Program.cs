@@ -44,3 +44,24 @@ reloj.Restart();
 Reporte r2 = analizador.ParaleloPorArchivo(archivos);
 reloj.Stop();
 double t2 = reloj.Elapsed.TotalMilliseconds;
+
+ reloj.Restart();
+Reporte r3 = analizador.ParaleloPorGrupos(archivos, grupos);
+reloj.Stop();
+double t3 = reloj.Elapsed.TotalMilliseconds;
+
+//reporte
+Console.WriteLine("------------------");
+Console.WriteLine("------REPORTE-----");
+Console.WriteLine("------------------");
+
+Console.WriteLine($"Archivos analizados: {r1.TotalArchivos:N0}");
+Console.WriteLine($"Total de lineas:     {r1.TotalLineas:N0}");
+Console.WriteLine($"Total de palabras:   {r1.TotalPalabras:N0}");
+Console.WriteLine($"Total de caracteres: {r1.TotalCaracteres:N0}");
+
+Console.WriteLine($"Coincidencias de terminos clave: {r1.TotalCoincidencias:N0}");
+Console.WriteLine("Top 3 palabras mas repetidas:");
+foreach (KeyValuePair<string, int> par in r1.TopPalabras(3))
+    Console.WriteLine($"   {par.Key} -> {par.Value:N0}");
+
