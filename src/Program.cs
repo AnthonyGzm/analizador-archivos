@@ -1,4 +1,5 @@
 using AnalizadorArchivos;
+using System.Diagnostics;
 
 string carpeta = @"C:\Users\antho\OneDrive\Documentos\Pruebas txt\libros_espanol";
 
@@ -22,3 +23,24 @@ if (archivos.Count == 0)
     Console.ReadLine();
     return;
 }
+    Console.WriteLine($"Analizando {archivos.Count:N0} archivos de: {carpeta}\n");
+
+// Palabras frecuentes
+string[] palabrasClave = ClavesFrecuentes.Extraer(archivos, 800);
+Analizador analizador = new Analizador(palabrasClave);
+int grupos = Environment.ProcessorCount;
+
+analizador.Secuencial(archivos);
+
+// Stopwatch de modos
+Stopwatch reloj = new Stopwatch();
+
+reloj.Restart();
+Reporte r1 = analizador.Secuencial(archivos);
+reloj.Stop();
+double t1 = reloj.Elapsed.TotalMilliseconds;
+
+reloj.Restart();
+Reporte r2 = analizador.ParaleloPorArchivo(archivos);
+reloj.Stop();
+double t2 = reloj.Elapsed.TotalMilliseconds;
