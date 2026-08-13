@@ -77,4 +77,29 @@ public class Analizador
         return general;
     }
 
+    // modo paralelo por grupos
+    public Reporte ParaleloPorGrupos(List<string> archivos, int grupos)
+    {
+        if (grupos > archivos.Count) grupos = archivos.Count;
+        if (grupos < 1) grupos = 1;
+
+        Reporte general = new Reporte();
+        List<Task> tareas = new List<Task>();
+        int tam = archivos.Count / grupos;
+        for (int g = 0; g < grupos; g++)
+        {
+            int inicio = g * tam;
+            int cuenta = (g == grupos - 1) ? archivos.Count - inicio : tam;
+            List<string> grupo = archivos.GetRange(inicio, cuenta);
+            tareas.Add(Task.Factory.StartNew(() =>
+            {
+                Reporte parcial = new Reporte();
+                foreach (string archivo in grupo)
+                    parcial.Combinar(AnalizarArchivo(archivo));
+                lock (candado) { general.Combinar(parcial); }
+            }));
+        }
+        Task.WhenAll(tareas).Wait();
+        return general;
+    }
 }
