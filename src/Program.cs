@@ -1,6 +1,6 @@
 using AnalizadorArchivos;
 
-string carpeta = @"C:\Users\maria\OneDrive\Desktop\Paralela\Finalfinal\DocumentosAnalizar";
+string carpeta = @"C:\Users\antho\OneDrive\Documentos\Pruebas txt\libros_espanol";
 
 // Verificacion de carpeta
 if (!Directory.Exists(carpeta))
