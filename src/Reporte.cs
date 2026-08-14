@@ -26,4 +26,12 @@ public class Reporte
                 Frecuencias[par.Key] = par.Value;
         }
     }
+
+     public List<KeyValuePair<string, int>> TopPalabras(int n)
+    {
+        List<KeyValuePair<string, int>> lista = new List<KeyValuePair<string, int>>(Frecuencias);
+        lista.Sort((a, b) => b.Value.CompareTo(a.Value));
+        if (lista.Count > n) lista = lista.GetRange(0, n);
+        return lista;
+    }
 }
