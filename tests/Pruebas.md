@@ -9,6 +9,7 @@ Se realizaron diferentes pruebas para comprobar que las funciones principales de
 * **Pruebas con errores:** 0
 * **Pruebas omitidas:** 0
 * **Tiempo total:** 257 ms aproximadamente
+<img width="781" height="386" alt="image" src="https://github.com/user-attachments/assets/849099dd-41c4-42d5-b916-53783327e073" />
 
 ## Pruebas realizadas
 
